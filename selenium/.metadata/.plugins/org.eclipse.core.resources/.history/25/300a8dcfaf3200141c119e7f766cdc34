@@ -1,0 +1,32 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import com.thoughtworks.selenium.*;
+import org.junit.After;
+import org.junit.Before;
+import java.util.regex.Pattern;
+
+public class Login {
+	private Selenium selenium;
+
+	@Before
+	public void setUp() throws Exception {
+		selenium = new DefaultSelenium("localhost", 4444, "*chrome", "http://uamcepic.integra.integra-online.com/LOPortal/default.aspx");
+		selenium.start();
+	}
+
+	@Test
+	public void testLogin() throws Exception {
+		selenium.open("/LOPortal/default.aspx");
+		assertEquals("Destiny Web", selenium.getTitle());
+		selenium.type("id=UserName", "hla01");
+		selenium.type("id=Password", "hla01");
+		selenium.click("id=LoginButton");
+		selenium.waitForPageToLoad("30000");
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		selenium.stop();
+	}
+}
